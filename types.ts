@@ -6,6 +6,7 @@ export enum ViewState {
   SCHEDULER = 'SCHEDULER',
   ANALYTICS = 'ANALYTICS',
   SETTINGS = 'SETTINGS',
+  AUDITOR = 'AUDITOR'
 }
 
 export enum Tone {
@@ -18,7 +19,7 @@ export enum Tone {
 
 export enum PostStatus {
   DRAFT = 'draft',
-  PUBLISHING = 'publishing', // Added for the interim state
+  PUBLISHING = 'publishing', 
   SCHEDULED = 'scheduled',
   PUBLISHED = 'published',
   FAILED = 'failed'
@@ -34,21 +35,21 @@ export interface UserProfileData {
 }
 
 export interface User {
-  id: string; // Supabase UUID
+  id: string; 
   email: string;
   plan: PlanType;
   credits: number;
   profile_data: UserProfileData;
-  ayrshare_key?: string; // Stored locally or in secure profile table
-  deepseek_key?: string; // Stored locally or in secure profile table
+  ayrshare_key?: string; 
+  deepseek_key?: string; 
   created_at?: string;
 }
 
 export interface InspirationPost {
   id: string; 
   title: string;
-  content: string; // Kept for legacy/fallback
-  original_content?: string; // New field from DB
+  content: string; 
+  original_content?: string; 
   linkedin_url?: string;
   engagement_score: number;
   tags: string[];
@@ -58,8 +59,8 @@ export interface InspirationPost {
   screenshot_url?: string;
   featured: boolean;
   added_by?: string;
-  author_name?: string; // Kept for legacy/fallback
-  original_author?: any; // New field from DB (could be string or json)
+  author_name?: string; 
+  original_author?: any; 
   author_headline?: string;
 }
 
@@ -88,8 +89,8 @@ export interface Post {
   scheduled_time?: string;
   published_time?: string;
   linkedin_post_id?: string;
-  ayrshare_id?: string; // ID returned by Ayrshare for scheduling/tracking
-  error_log?: string; // To track why a post failed
+  ayrshare_id?: string; 
+  error_log?: string; 
   platform: 'linkedin';
   media_urls: string[];
   hashtags: string[];
@@ -102,4 +103,18 @@ export interface AnalyticsMetric {
   date: string;
   views: number;
   engagement: number;
+}
+
+export interface ProfileAuditResult {
+  score: number;
+  analysis: {
+    clarity: string;
+    keywords: string;
+    cta: string;
+    impact: string;
+  };
+  suggestions: {
+    headlines: string[];
+    about_intro: string;
+  };
 }
